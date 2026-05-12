@@ -1,0 +1,9 @@
+{
+  "name": "tonic-proposal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tonic Technologies website redesign proposal, prepared by Worqless.",
+  "scripts": {
+    "start": "npx -y serve@latest -s . -l tcp://0.0.0.0:${PORT:-3000}"
+  }
+}

@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Proposal · Tonic Technologies × Worqless</title>
+<meta name="description" content="Website modernization + conversion refresh proposal for Tonic Technologies, prepared by Worqless." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* ───────────────────────── RESET ───────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { min-height: 100vh; overflow-x: hidden; }
+  img, svg { display: block; max-width: 100%; }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+
+  /* ───────────────────────── TOKENS ───────────────────────── */
+  :root {
+    --bg-base: #0A0A0B;
+    --bg-elevated: #111114;
+    --bg-overlay: #16161A;
+    --bg-card: #0F0F12;
+
+    --border-subtle: rgba(255,255,255,0.06);
+    --border-strong: rgba(255,255,255,0.12);
+    --border-accent: rgba(27,164,224,0.4);
+
+    --text-primary: #F5F5F7;
+    --text-secondary: #A1A1AA;
+    --text-tertiary: #52525B;
+    --text-muted: #3F3F46;
+
+    --accent: #1BA4E0;
+    --accent-bright: #3DBEF5;
+    --accent-soft: rgba(27,164,224,0.12);
+    --accent-glow: 0 0 80px rgba(27,164,224,0.35);
+    --accent-glow-strong: 0 0 120px rgba(27,164,224,0.45);
+
+    --brand-gray: #6F7378;
+
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-serif: 'Instrument Serif', Georgia, serif;
+
+    --container: 1180px;
+    --container-tight: 960px;
+    --radius: 14px;
+    --radius-lg: 20px;
+
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ───────────────────────── BASE ───────────────────────── */
+  body {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    background: var(--bg-base);
+    background-image:
+      radial-gradient(1200px 600px at 50% -10%, rgba(27,164,224,0.10), transparent 60%),
+      radial-gradient(800px 400px at 90% 30%, rgba(27,164,224,0.06), transparent 70%);
+    background-attachment: fixed;
+  }
+
+  ::selection { background: var(--accent); color: #fff; }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+  .container-tight { max-width: var(--container-tight); margin: 0 auto; padding: 0 32px; }
+
+  /* Subtle grid background */
+  .grid-bg {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.4;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  /* ───────────────────────── TYPOGRAPHY ───────────────────────── */
+  h1, h2, h3, h4 { font-weight: 700; color: var(--text-primary); line-height: 1.1; letter-spacing: -0.02em; }
+  .display-1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; }
+  .display-2 { font-size: clamp(2rem, 4.2vw, 3.25rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
+  .display-3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; letter-spacing: -0.02em; }
+  .heading-card { font-size: 1.25rem; font-weight: 600; color: var(--text-primary); }
+  .lead { font-size: clamp(1.05rem, 1.4vw, 1.2rem); color: var(--text-secondary); line-height: 1.65; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--accent);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 12px var(--accent);
+  }
+
+  .section-number {
+    font-family: var(--font-mono);
+    font-size: 0.75rem; font-weight: 500;
+    color: var(--text-tertiary);
+    text-transform: uppercase; letter-spacing: 0.12em;
+  }
+  .section-number span { color: var(--text-primary); }
+
+  .serif-accent { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--text-primary); }
+
+  /* ───────────────────────── NAV ───────────────────────── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    padding: 16px 0;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(10,10,11,0.65);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .nav.scrolled { border-bottom-color: var(--border-subtle); background: rgba(10,10,11,0.85); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-link {
+    font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500;
+    color: var(--text-tertiary); transition: color 0.2s var(--ease);
+    position: relative; padding: 4px 0;
+  }
+  .nav-link:hover, .nav-link.active { color: var(--text-primary); }
+  .nav-link.active::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 1px;
+    background: var(--accent); box-shadow: 0 0 8px var(--accent);
+  }
+  .nav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    transition: all 0.2s var(--ease);
+  }
+  .nav-cta:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Logo wordmark */
+  .wordmark {
+    font-family: var(--font-sans); font-weight: 800;
+    font-size: 1.1rem; letter-spacing: -0.03em;
+    display: inline-flex; align-items: baseline; gap: 0;
+  }
+  .wordmark .worq { color: var(--accent); }
+  .wordmark .less { color: var(--text-secondary); }
+  .wordmark .dot { color: var(--accent); }
+
+  @media (max-width: 800px) {
+    .nav-links { display: none; }
+  }
+
+  /* ───────────────────────── SECTION ───────────────────────── */
+  section { position: relative; padding: 120px 0; }
+  section.tight { padding: 80px 0; }
+  .section-header { margin-bottom: 64px; max-width: 760px; }
+  .section-header .section-number { display: block; margin-bottom: 20px; }
+  .section-header h2 { margin-bottom: 16px; }
+
+  /* ───────────────────────── HERO ───────────────────────── */
+  .hero {
+    min-height: 92vh; display: flex; align-items: center;
+    padding-top: 140px; padding-bottom: 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-orb {
+    position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 900px; height: 900px;
+    background: radial-gradient(circle, rgba(27,164,224,0.22) 0%, transparent 60%);
+    filter: blur(60px);
+    animation: orb 18s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes orb {
+    0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+    50% { transform: translateX(-40%) translateY(40px) scale(1.08); }
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 980px; }
+  .hero h1 { margin: 32px 0 28px; }
+  .hero h1 .accent-line { color: var(--accent); font-family: var(--font-serif); font-style: italic; font-weight: 400; }
+  .hero-sub { font-size: clamp(1.05rem, 1.5vw, 1.25rem); color: var(--text-secondary); max-width: 680px; line-height: 1.65; }
+  .hero-meta {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 32px; padding: 28px 0 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .hero-meta-item .label {
+    font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--text-tertiary); margin-bottom: 8px;
+  }
+  .hero-meta-item .value { font-size: 0.95rem; color: var(--text-primary); font-weight: 500; }
+  .hero-scroll-cue {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em;
+    color: var(--text-tertiary); text-transform: uppercase;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .hero-scroll-cue::after {
+    content: ''; width: 1px; height: 32px;
+    background: linear-gradient(to bottom, var(--text-tertiary), transparent);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+  @keyframes scroll-pulse {
+    0% { transform: scaleY(0.4); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    100% { transform: scaleY(0.4); transform-origin: bottom; }
+  }
+
+  /* ───────────────────────── OPPORTUNITY ───────────────────────── */
+  .opportunity-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: start;
+  }
+  .opportunity-text p { margin-bottom: 20px; }
+  .opportunity-text p:last-child { margin-bottom: 0; }
+  .foundations-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    position: sticky; top: 100px;
+  }
+  .foundations-card .label {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+    display: block;
+  }
+  .foundations-list { display: flex; flex-direction: column; gap: 12px; }
+  .foundation-pill {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    background: var(--bg-overlay);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    transition: all 0.25s var(--ease);
+  }
+  .foundation-pill:hover { border-color: var(--border-accent); transform: translateX(2px); }
+  .foundation-pill svg { flex-shrink: 0; color: var(--accent); }
+  .foundation-pill span { font-size: 0.92rem; color: var(--text-primary); }
+
+  .outcomes {
+    margin-top: 96px;
+  }
+  .outcomes-label {
+    font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 24px;
+  }
+  .outcomes-header h3 { margin-bottom: 48px; max-width: 620px; }
+  .outcomes-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .outcome-card {
+    padding: 28px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    transition: all 0.3s var(--ease);
+    position: relative; overflow: hidden;
+  }
+  .outcome-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(27,164,224,0.08), transparent 40%);
+    opacity: 0; transition: opacity 0.3s var(--ease);
+    pointer-events: none;
+  }
+  .outcome-card:hover::before { opacity: 1; }
+  .outcome-card:hover { border-color: var(--border-accent); transform: translateY(-2px); }
+  .outcome-card .num {
+    font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent);
+    letter-spacing: 0.14em; margin-bottom: 14px; display: block;
+  }
+  .outcome-card p { font-size: 0.95rem; color: var(--text-primary); line-height: 1.5; }
+
+  @media (max-width: 880px) {
+    .opportunity-grid { grid-template-columns: 1fr; gap: 40px; }
+    .foundations-card { position: static; }
+  }
+
+  /* ───────────────────────── BEFORE / AFTER ───────────────────────── */
+  .ba-wrapper {
+    position: relative;
+  }
+  .ba-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;
+  }
+  .ba-col h4 {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em;
+    text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .ba-col.before h4 { color: #ef4444; }
+  .ba-col.before h4::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #ef4444; }
+  .ba-col.after h4 { color: var(--accent); }
+  .ba-col.after h4::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+
+  .browser-mock {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+  }
+  .browser-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--bg-overlay);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .browser-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; }
+  .browser-url {
+    margin-left: 8px; padding: 4px 12px; flex: 1;
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary);
+  }
+
+  /* BEFORE mock, current Tonic style (teal/white corporate) */
+  .mock-before {
+    background: #ffffff; color: #2c3e50;
+    padding: 36px 28px; min-height: 280px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .mock-before .mb-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; font-size: 0.7rem; color: #6c7a89; }
+  .mock-before .mb-logo { font-weight: 700; color: #00A3B4; font-size: 0.9rem; }
+  .mock-before .mb-headline { font-size: 1.1rem; font-weight: 600; color: #2c3e50; margin-bottom: 10px; line-height: 1.3; }
+  .mock-before .mb-tagline { font-size: 0.72rem; color: #00A3B4; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .mock-before .mb-sub { font-size: 0.74rem; color: #6c7a89; line-height: 1.5; margin-bottom: 16px; max-width: 90%; }
+  .mock-before .mb-cta { display: inline-block; padding: 7px 16px; background: #00A3B4; color: white; font-size: 0.72rem; border-radius: 3px; font-weight: 500; }
+  .mock-before .mb-logos { display: flex; gap: 14px; margin-top: 22px; padding-top: 18px; border-top: 1px solid #e6e9ed; }
+  .mock-before .mb-logos div { height: 18px; width: 50px; background: #d8dde3; border-radius: 2px; }
+
+  /* AFTER mock, proposed direction */
+  .mock-after { background: linear-gradient(180deg, #0A0A0B 0%, #111114 100%); padding: 36px 28px; min-height: 280px; position: relative; overflow: hidden; }
+  .mock-after::before { content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(27,164,224,0.25), transparent 60%); filter: blur(40px); }
+  .mock-after .ma-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-tertiary); position: relative; }
+  .mock-after .ma-logo { font-weight: 800; font-size: 0.95rem; color: #fff; letter-spacing: -0.02em; }
+  .mock-after .ma-logo span { color: var(--accent); }
+  .mock-after .ma-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(27,164,224,0.1); border: 1px solid rgba(27,164,224,0.3); border-radius: 999px; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; position: relative; }
+  .mock-after .ma-pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+  .mock-after .ma-headline { font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 10px; position: relative; }
+  .mock-after .ma-headline em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent); }
+  .mock-after .ma-sub { font-size: 0.74rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 18px; max-width: 92%; position: relative; }
+  .mock-after .ma-cta-row { display: flex; gap: 10px; position: relative; margin-bottom: 22px; }
+  .mock-after .ma-cta { padding: 7px 14px; background: var(--accent); color: white; font-size: 0.72rem; border-radius: 6px; font-weight: 600; }
+  .mock-after .ma-cta-sec { padding: 7px 14px; border: 1px solid var(--border-strong); color: var(--text-primary); font-size: 0.72rem; border-radius: 6px; font-weight: 500; }
+  .mock-after .ma-trust { display: flex; gap: 14px; align-items: center; padding-top: 16px; border-top: 1px solid var(--border-subtle); position: relative; }
+  .mock-after .ma-trust .star-row { display: flex; gap: 1px; color: var(--accent); font-size: 0.7rem; }
+  .mock-after .ma-trust .quote { font-size: 0.66rem; color: var(--text-tertiary); font-style: italic; }
+
+  .ba-notes { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .ba-note {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-left: 2px solid var(--accent);
+    border-radius: 6px;
+    font-family: var(--font-mono); font-size: 0.74rem;
+    color: var(--text-secondary); line-height: 1.5;
+  }
+  .ba-col.before .ba-note { border-left-color: #ef4444; }
+  .ba-note .tag { color: var(--accent); font-weight: 600; }
+  .ba-col.before .ba-note .tag { color: #ef4444; }
+
+  @media (max-width: 800px) {
+    .ba-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ───────────────────────── KEY AREAS ───────────────────────── */
+  .key-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .key-card {
+    padding: 36px 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s var(--ease);
+    position: relative; overflow: hidden;
+  }
+  .key-card::after {
+    content: ''; position: absolute; top: -1px; left: -1px; right: -1px; bottom: -1px;
+    background: linear-gradient(135deg, rgba(27,164,224,0.4), transparent 60%);
+    border-radius: var(--radius-lg);
+    opacity: 0; transition: opacity 0.3s var(--ease);
+    z-index: -1;
+  }
+  .key-card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
+  .key-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    border: 1px solid rgba(27,164,224,0.25);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); margin-bottom: 24px;
+  }
+  .key-card h3 { font-size: 1.15rem; margin-bottom: 12px; }
+  .key-card p { font-size: 0.93rem; line-height: 1.6; }
+
+  /* ───────────────────────── SCOPE ───────────────────────── */
+  .scope-grid {
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px;
+  }
+  .scope-checklist { display: flex; flex-direction: column; gap: 12px; }
+  .scope-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    transition: all 0.2s var(--ease);
+  }
+  .scope-item:hover { border-color: var(--border-accent); background: var(--bg-overlay); }
+  .scope-check {
+    flex-shrink: 0; width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    border: 1px solid rgba(27,164,224,0.3);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .scope-item span { color: var(--text-primary); font-size: 0.95rem; font-weight: 500; }
+
+  .design-direction {
+    padding: 36px;
+    background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-base) 100%);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    position: sticky; top: 100px;
+  }
+  .design-direction .label {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+  }
+  .design-direction h3 { font-size: 1.15rem; margin-bottom: 24px; }
+  .design-list { display: flex; flex-direction: column; gap: 14px; }
+  .design-list li {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 1.1rem; color: var(--text-primary);
+    padding-left: 18px; position: relative; line-height: 1.4;
+  }
+  .design-list li::before {
+    content: ''; position: absolute; left: 0; top: 12px;
+    width: 8px; height: 1px; background: var(--accent);
+  }
+
+  @media (max-width: 880px) {
+    .scope-grid { grid-template-columns: 1fr; gap: 40px; }
+    .design-direction { position: static; }
+  }
+
+  /* ───────────────────────── PROCESS ───────────────────────── */
+  .process-track {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    position: relative;
+  }
+  .process-track::before {
+    content: ''; position: absolute; top: 36px; left: 8%; right: 8%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong) 20%, var(--border-strong) 80%, transparent);
+    z-index: 0;
+  }
+  .phase {
+    position: relative; z-index: 1;
+    background: var(--bg-base);
+    padding: 0 8px;
+  }
+  .phase-marker {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 0.95rem; font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .phase-marker::after {
+    content: ''; position: absolute; inset: -1px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--accent), transparent 60%);
+    z-index: -1;
+    opacity: 0.5;
+  }
+  .phase h3 { font-size: 1.1rem; margin-bottom: 16px; }
+  .phase ul { display: flex; flex-direction: column; gap: 10px; }
+  .phase li {
+    font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5;
+    padding-left: 18px; position: relative;
+  }
+  .phase li::before {
+    content: ''; position: absolute; left: 0; top: 10px;
+    width: 6px; height: 1px; background: var(--accent);
+  }
+
+  @media (max-width: 800px) {
+    .process-track { grid-template-columns: 1fr; gap: 40px; }
+    .process-track::before { display: none; }
+  }
+
+  /* ───────────────────────── TIMELINE ───────────────────────── */
+  .timeline-bar {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 40px 36px;
+    margin-bottom: 32px;
+  }
+  .timeline-weeks {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; position: relative;
+    margin-top: 24px;
+  }
+  .week {
+    text-align: center; padding: 18px 8px;
+    background: var(--bg-overlay);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    position: relative;
+  }
+  .week.active {
+    border-color: var(--border-accent);
+    background: rgba(27,164,224,0.05);
+  }
+  .week-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .week-phase { font-size: 0.78rem; color: var(--text-primary); font-weight: 500; }
+  .timeline-headline {
+    display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px;
+  }
+  .timeline-headline .estimate { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .timeline-headline h3 { font-size: 1.5rem; }
+
+  .timeline-notes {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .timeline-note {
+    padding: 16px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .timeline-note .icon { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+  .timeline-note span { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.45; }
+
+  @media (max-width: 700px) {
+    .timeline-weeks { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ───────────────────────── MARKET CONTEXT (agency comparison) ───────────────────────── */
+  .market-context {
+    margin-bottom: 56px;
+    padding: 36px 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+  }
+  .market-context-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 28px;
+  }
+  .market-context-head .label {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .market-context-head .label strong { color: var(--text-primary); font-weight: 500; }
+  .market-context-head .source {
+    font-family: var(--font-mono); font-size: 0.68rem;
+    color: var(--text-tertiary); letter-spacing: 0.08em;
+  }
+  .market-rows { display: flex; flex-direction: column; gap: 14px; }
+  .market-row {
+    display: grid; grid-template-columns: 220px 1fr 160px;
+    gap: 24px; align-items: center;
+  }
+  .market-row .tier { font-size: 0.92rem; color: var(--text-secondary); }
+  .market-row.highlight .tier { color: var(--text-primary); font-weight: 600; }
+  .market-bar {
+    height: 10px; border-radius: 999px;
+    background: var(--bg-overlay);
+    position: relative; overflow: hidden;
+    border: 1px solid var(--border-subtle);
+  }
+  .market-bar .fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.16));
+    border-radius: 999px;
+    width: var(--w, 0);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1.2s var(--ease);
+  }
+  .market-context.in .market-bar .fill { transform: scaleX(1); }
+  .market-row:nth-child(1) .fill { transition-delay: 0.1s; }
+  .market-row:nth-child(2) .fill { transition-delay: 0.25s; }
+  .market-row:nth-child(3) .fill { transition-delay: 0.4s; }
+  .market-row:nth-child(4) .fill { transition-delay: 0.55s; }
+  .market-row.highlight .fill {
+    background: linear-gradient(90deg, var(--accent-bright), var(--accent));
+    box-shadow: 0 0 24px rgba(27,164,224,0.5);
+  }
+  .market-row .price {
+    font-family: var(--font-mono); font-size: 0.88rem;
+    color: var(--text-secondary); text-align: right; white-space: nowrap;
+  }
+  .market-row.highlight .price { color: var(--accent); font-weight: 600; font-size: 0.95rem; }
+  .market-row.highlight .price .you {
+    font-family: var(--font-sans); font-size: 0.68rem; font-weight: 500;
+    color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+    display: block; margin-bottom: 2px;
+  }
+  @media (max-width: 720px) {
+    .market-context { padding: 28px 24px; }
+    .market-row { grid-template-columns: 1fr; gap: 8px; }
+    .market-row .price { text-align: left; }
+  }
+
+  /* ───────────────────────── INVESTMENT (MONEY SHOT) ───────────────────────── */
+  .invest-card-wrap {
+    position: relative;
+  }
+  .invest-card-wrap::before {
+    content: ''; position: absolute; inset: -60px;
+    background: radial-gradient(ellipse at center, rgba(27,164,224,0.18), transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  .invest-card {
+    position: relative;
+    background: linear-gradient(180deg, #14161B 0%, #0D0D10 100%);
+    border: 1px solid var(--border-strong);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(27,164,224,0.08) inset;
+  }
+  .invest-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .invest-inner {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 0;
+  }
+  .invest-left {
+    padding: 48px 44px;
+    border-right: 1px solid var(--border-subtle);
+  }
+  .invest-left .label {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); margin-bottom: 24px;
+  }
+  .invest-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+  .invest-line {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--border-subtle);
+  }
+  .invest-line:last-of-type { border-bottom: none; padding-bottom: 0; }
+  .invest-line .name { font-size: 0.92rem; color: var(--text-primary); }
+  .invest-line .val {
+    font-family: var(--font-mono); font-size: 0.85rem;
+    color: var(--text-tertiary); text-decoration: line-through;
+    text-decoration-color: rgba(82,82,91,0.6);
+  }
+  .invest-totals {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    padding-top: 20px; border-top: 1px solid var(--border-strong);
+  }
+  .invest-totals .name {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--text-secondary);
+  }
+  .invest-totals .val {
+    font-family: var(--font-mono); font-weight: 600;
+    font-size: 1.1rem; color: var(--text-tertiary);
+    text-decoration: line-through; text-decoration-color: rgba(82,82,91,0.6);
+  }
+
+  .invest-right {
+    padding: 48px 44px;
+    display: flex; flex-direction: column; justify-content: center;
+    background: radial-gradient(ellipse at top right, rgba(27,164,224,0.12), transparent 60%);
+  }
+  .invest-right .label {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); margin-bottom: 12px;
+  }
+  .invest-right .price {
+    font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 800;
+    color: var(--text-primary); line-height: 1; letter-spacing: -0.04em;
+    margin-bottom: 6px;
+  }
+  .invest-right .price .currency {
+    font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500;
+    color: var(--text-tertiary); margin-left: 8px; vertical-align: super;
+    letter-spacing: 0.08em;
+  }
+  .invest-right .price-sub { font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 32px; }
+  .invest-payments {
+    display: flex; flex-direction: column; gap: 12px;
+    padding-top: 24px; border-top: 1px solid var(--border-subtle);
+  }
+  .payment-row {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 0.88rem; color: var(--text-secondary);
+  }
+  .payment-row .pct {
+    font-family: var(--font-mono); font-weight: 600;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    border: 1px solid rgba(27,164,224,0.3);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 800px) {
+    .invest-inner { grid-template-columns: 1fr; }
+    .invest-left { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+    .invest-left, .invest-right { padding: 36px 28px; }
+  }
+
+  /* ───────────────────────── FOUNDER NOTE ───────────────────────── */
+  .founder-card {
+    background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-base) 100%);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 56px;
+    display: grid; grid-template-columns: 120px 1fr; gap: 40px;
+    align-items: start;
+  }
+  .founder-avatar {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #0F4A6B);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.8rem; letter-spacing: -0.02em;
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: var(--accent-glow);
+  }
+  .founder-note .quote-mark {
+    font-family: var(--font-serif); font-size: 4rem; color: var(--accent);
+    line-height: 0.5; margin-bottom: 8px; opacity: 0.4;
+  }
+  .founder-note p {
+    font-size: 1.05rem; color: var(--text-primary);
+    line-height: 1.65; margin-bottom: 20px;
+  }
+  .founder-note p:last-of-type { margin-bottom: 24px; }
+  .founder-sig {
+    display: flex; flex-direction: column; gap: 4px;
+    padding-top: 24px; border-top: 1px solid var(--border-subtle);
+  }
+  .founder-sig .name { font-family: var(--font-serif); font-style: italic; font-size: 1.5rem; color: var(--text-primary); }
+  .founder-sig .role { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+
+  @media (max-width: 700px) {
+    .founder-card { grid-template-columns: 1fr; padding: 36px 28px; gap: 28px; }
+    .founder-avatar { width: 72px; height: 72px; font-size: 1.4rem; }
+  }
+
+  /* ───────────────────────── NEXT STEPS ───────────────────────── */
+  .next-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: start;
+  }
+  .next-list { display: flex; flex-direction: column; gap: 14px; }
+  .next-item {
+    display: flex; align-items: center; gap: 18px;
+    padding: 18px 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    transition: all 0.25s var(--ease);
+  }
+  .next-item:hover { border-color: var(--border-accent); transform: translateX(4px); }
+  .next-num {
+    font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;
+    width: 36px; height: 36px;
+    background: var(--accent-soft);
+    border: 1px solid rgba(27,164,224,0.3);
+    border-radius: 50%;
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .next-item span { font-size: 0.98rem; color: var(--text-primary); font-weight: 500; }
+
+  .next-cta-card {
+    padding: 36px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    position: sticky; top: 100px;
+    text-align: center;
+  }
+  .next-cta-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+  .next-cta-card p { font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 28px; line-height: 1.55; }
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(180deg, var(--accent-bright) 0%, var(--accent) 100%);
+    color: white;
+    font-weight: 600; font-size: 0.95rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px -8px rgba(27,164,224,0.5), 0 0 0 1px rgba(255,255,255,0.1) inset;
+    transition: all 0.25s var(--ease);
+    margin-bottom: 12px;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 40px -8px rgba(27,164,224,0.65), 0 0 0 1px rgba(255,255,255,0.15) inset; }
+  .btn-primary svg { transition: transform 0.25s var(--ease); }
+  .btn-primary:hover svg { transform: translateX(3px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%;
+    padding: 14px 24px;
+    background: transparent;
+    color: var(--text-primary);
+    font-weight: 500; font-size: 0.9rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    transition: all 0.25s var(--ease);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 880px) {
+    .next-grid { grid-template-columns: 1fr; gap: 40px; }
+    .next-cta-card { position: static; }
+  }
+
+  /* ───────────────────────── FOOTER ───────────────────────── */
+  .footer {
+    padding: 64px 0 48px;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 80px;
+  }
+  .footer-inner {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 48px; align-items: start;
+  }
+  .footer-brand .wordmark { font-size: 1.4rem; margin-bottom: 12px; }
+  .footer-tag { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-tertiary); text-transform: uppercase; }
+  .footer-col h5 { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 16px; }
+  .footer-col a, .footer-col span { display: block; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px; transition: color 0.2s var(--ease); }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-meta {
+    margin-top: 48px; padding-top: 24px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-tertiary); letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 700px) {
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ───────────────────────── REVEAL ANIMATIONS ───────────────────────── */
+  .reveal {
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-stagger > * {
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+  .reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
+  .reveal-stagger.in > *:nth-child(1) { transition-delay: 0.05s; }
+  .reveal-stagger.in > *:nth-child(2) { transition-delay: 0.1s; }
+  .reveal-stagger.in > *:nth-child(3) { transition-delay: 0.15s; }
+  .reveal-stagger.in > *:nth-child(4) { transition-delay: 0.2s; }
+  .reveal-stagger.in > *:nth-child(5) { transition-delay: 0.25s; }
+  .reveal-stagger.in > *:nth-child(6) { transition-delay: 0.3s; }
+  .reveal-stagger.in > *:nth-child(7) { transition-delay: 0.35s; }
+  .reveal-stagger.in > *:nth-child(8) { transition-delay: 0.4s; }
+  .reveal-stagger.in > *:nth-child(9) { transition-delay: 0.45s; }
+  .reveal-stagger.in > *:nth-child(10) { transition-delay: 0.5s; }
+  .reveal-stagger.in > *:nth-child(11) { transition-delay: 0.55s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    .reveal, .reveal-stagger > * { opacity: 1; transform: none; }
+  }
+
+  /* ───────────────────────── PRINT ───────────────────────── */
+  @media print {
+    body { background: white; color: black; }
+    .nav, .hero-orb, .hero-scroll-cue { display: none; }
+    section { padding: 40px 0; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────────────── NAV ───────────────── -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="wordmark" aria-label="Worqless">
+      <span class="worq">worq</span><span class="less">less</span><span class="dot">.</span>
+    </a>
+    <div class="nav-links">
+      <a href="#opportunity" class="nav-link">01 / Opportunity</a>
+      <a href="#scope" class="nav-link">02 / Scope</a>
+      <a href="#process" class="nav-link">03 / Process</a>
+      <a href="#investment" class="nav-link">04 / Investment</a>
+    </div>
+    <a href="#next-steps" class="nav-cta">
+      Next Steps
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- ───────────────── HERO ───────────────── -->
+  <section class="hero">
+    <div class="hero-orb"></div>
+    <div class="grid-bg"></div>
+    <div class="container hero-content">
+      <span class="eyebrow reveal">Proposal · Prepared for Tonic Technologies</span>
+      <h1 class="display-1 reveal">
+        Modernizing the website experience<br/>
+        <span class="accent-line">for the company behind it.</span>
+      </h1>
+      <p class="hero-sub reveal">
+        A focused redesign that improves clarity, builds buyer confidence earlier, and turns more interest into real conversations, without touching what already works about the Tonic brand.
+      </p>
+      <div class="hero-meta reveal">
+        <div class="hero-meta-item">
+          <div class="label">Prepared by</div>
+          <div class="value">Jayden Randall · Worqless</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="label">Prepared for</div>
+          <div class="value">Tonic Technologies</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="label">Project</div>
+          <div class="value">Website Modernization + Conversion Refresh</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="label">Date</div>
+          <div class="value">May 2026</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-cue">Scroll</div>
+  </section>
+
+  <!-- ───────────────── OPPORTUNITY ───────────────── -->
+  <section id="opportunity">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-number">01 / <span>Understanding the Opportunity</span></div>
+        <h2 class="display-2">Bringing the website up to the level of the company behind it.</h2>
+      </div>
+
+      <div class="opportunity-grid">
+        <div class="opportunity-text reveal">
+          <p class="lead">
+            After our discussion, the main opportunity appears to be less about completely reinventing the business, and more about <em class="serif-accent">presenting it the way it deserves to be presented.</em>
+          </p>
+          <p>
+            Tonic already has strong foundations: established ERP expertise, clear industry experience, and reputable platform partnerships. The current opportunity is presenting all of that in a more modern, confidence-building, and conversion-focused way.
+          </p>
+          <p>
+            The goal of this project would be to create a cleaner and more modern web experience that positions Tonic more competitively, improves buyer confidence earlier, communicates value more clearly, creates a stronger first impression, and supports more conversations from interested prospects.
+          </p>
+        </div>
+
+        <aside class="foundations-card reveal">
+          <span class="label">Strong foundations</span>
+          <ul class="foundations-list">
+            <li class="foundation-pill">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <span>Established ERP expertise</span>
+            </li>
+            <li class="foundation-pill">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              <span>Clear industry experience</span>
+            </li>
+            <li class="foundation-pill">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-12V5l8-3 8 3v5c0 7.5-8 12-8 12z"/><polyline points="9 11 12 14 16 9"/></svg>
+              <span>Reputable platform partnerships</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+
+      <div class="outcomes">
+        <div class="outcomes-header reveal">
+          <div class="outcomes-label">The goal</div>
+          <h3 class="display-3">Five outcomes the new site is designed to drive.</h3>
+        </div>
+        <div class="outcomes-grid reveal-stagger" data-track-mouse>
+          <div class="outcome-card"><span class="num">01</span><p>Position Tonic more competitively in a crowded ERP space.</p></div>
+          <div class="outcome-card"><span class="num">02</span><p>Improve buyer confidence earlier in the journey.</p></div>
+          <div class="outcome-card"><span class="num">03</span><p>Communicate value more clearly and quickly.</p></div>
+          <div class="outcome-card"><span class="num">04</span><p>Create a stronger first impression for new prospects.</p></div>
+          <div class="outcome-card"><span class="num">05</span><p>Support more conversations from interested buyers.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── BEFORE / AFTER ───────────────── -->
+  <section id="before-after" class="tight">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-number">02 / <span>The Gap, Visualized</span></div>
+        <h2 class="display-2">From corporate-and-cautious to <em class="serif-accent">confident-and-clear.</em></h2>
+        <p class="lead" style="margin-top: 16px;">A directional comparison, not a finished design, showing the kind of shift this project is built around.</p>
+      </div>
+
+      <div class="ba-wrapper">
+        <div class="ba-grid">
+          <!-- BEFORE -->
+          <div class="ba-col before reveal">
+            <h4>Today</h4>
+            <div class="browser-mock">
+              <div class="browser-bar">
+                <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+                <span class="browser-url">tonictechnologies.com.au</span>
+              </div>
+              <div class="mock-before">
+                <div class="mb-nav">
+                  <div class="mb-logo">TONIC</div>
+                  <div>Products  ·  Services  ·  Industries  ·  Contact</div>
+                </div>
+                <div class="mb-tagline">SIMPLIFY · TRANSFORM · SCALE · SUCCEED</div>
+                <div class="mb-headline">MYOB Acumatica and TechnologyOne ERP Specialists</div>
+                <div class="mb-sub">Delivering cloud-based ERP solutions that connect projects, accounting, payroll, financial management, and inventory for growing businesses.</div>
+                <div class="mb-cta">Contact us today</div>
+                <div class="mb-logos">
+                  <div></div><div></div><div></div><div></div><div></div>
+                </div>
+              </div>
+            </div>
+            <div class="ba-notes">
+              <div class="ba-note"><span><span class="tag">Weak CTA:</span> generic "Contact us today" creates no urgency or specificity.</span></div>
+              <div class="ba-note"><span><span class="tag">No social proof:</span> 12+ client logos but zero testimonials or case studies.</span></div>
+              <div class="ba-note"><span><span class="tag">Dual-ERP message:</span> MYOB + TechnologyOne pitched in parallel creates buyer confusion.</span></div>
+              <div class="ba-note"><span><span class="tag">Missing certifications:</span> no third-party validation visible above the fold.</span></div>
+            </div>
+          </div>
+
+          <!-- AFTER -->
+          <div class="ba-col after reveal">
+            <h4>Direction</h4>
+            <div class="browser-mock">
+              <div class="browser-bar">
+                <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+                <span class="browser-url">tonictechnologies.com.au</span>
+              </div>
+              <div class="mock-after">
+                <div class="ma-nav">
+                  <div class="ma-logo">tonic<span>.</span></div>
+                  <div>Platforms · Industries · Insights</div>
+                </div>
+                <div class="ma-pill">MYOB Acumatica Implementation Partner</div>
+                <div class="ma-headline">Cloud ERP, <em>implemented right.</em></div>
+                <div class="ma-sub">Two decades helping Australian manufacturers, distributors, and operators run on systems that actually scale with them.</div>
+                <div class="ma-cta-row">
+                  <div class="ma-cta">Book a free assessment →</div>
+                  <div class="ma-cta-sec">See client work</div>
+                </div>
+                <div class="ma-trust">
+                  <div class="star-row">★★★★★</div>
+                  <div class="quote">"Tonic took 6 months off our timeline," Operations Director, Powertec</div>
+                </div>
+              </div>
+            </div>
+            <div class="ba-notes">
+              <div class="ba-note"><span><span class="tag">+ Specific CTA:</span> "Book a free assessment" creates a clear, low-friction next step.</span></div>
+              <div class="ba-note"><span><span class="tag">+ Proof above the fold:</span> 5-star review with real client name shifts perception immediately.</span></div>
+              <div class="ba-note"><span><span class="tag">+ Sharpened positioning:</span> one anchor message, with ERP platform shown as a credibility pill.</span></div>
+              <div class="ba-note"><span><span class="tag">+ Modern B2B feel:</span> dark, premium, confident, matches the level of buyer Tonic is targeting.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── KEY AREAS ───────────────── -->
+  <section id="key-areas">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-number">03 / <span>Key Areas For Improvement</span></div>
+        <h2 class="display-2">Four levers, working together.</h2>
+      </div>
+
+      <div class="key-grid reveal-stagger">
+        <div class="key-card">
+          <div class="key-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3>Modernization of the Overall UI</h3>
+          <p>Refreshing the visual experience so the site feels current, polished, and aligned with modern B2B expectations, the kind of first impression that matches Tonic's actual capability.</p>
+        </div>
+
+        <div class="key-card">
+          <div class="key-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <h3>Stronger Positioning & Messaging</h3>
+          <p>Improving how the site communicates who Tonic is best for, why companies should choose Tonic specifically, and the value of working with an implementation partner, not just a platform.</p>
+        </div>
+
+        <div class="key-card">
+          <div class="key-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-12V5l8-3 8 3v5c0 7.5-8 12-8 12z"/></svg>
+          </div>
+          <h3>Increased Trust & Reassurance</h3>
+          <p>Introducing stronger proof and reassurance throughout the experience, built specifically for high-consideration buyers evaluating ERP partners over weeks, not minutes.</p>
+        </div>
+
+        <div class="key-card">
+          <div class="key-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          </div>
+          <h3>Improved Conversion Flow</h3>
+          <p>Making the path from <em class="serif-accent">interest → enquiry</em> feel natural and lower-friction for buyers who are still researching their options.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── SCOPE ───────────────── -->
+  <section id="scope">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-number">04 / <span>Proposed Scope</span></div>
+        <h2 class="display-2">Website modernization + refresh.</h2>
+      </div>
+
+      <div class="scope-grid">
+        <div class="reveal">
+          <h3 class="heading-card" style="margin-bottom: 24px;">What's included</h3>
+          <div class="scope-checklist reveal-stagger">
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Homepage redesign + modernization</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Full 19-page redesign across the site</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Improved layout structure</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Modern UI refresh</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Messaging improvements</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>CTA improvements</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Trust / proof section improvements</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Mobile responsiveness improvements</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Squarespace implementation</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Overall user experience refinement</span></div>
+          </div>
+        </div>
+
+        <aside class="design-direction reveal">
+          <div class="label">Design direction</div>
+          <h3>The overall direction would focus on,</h3>
+          <ul class="design-list">
+            <li>Cleaner structure</li>
+            <li>Modern B2B presentation</li>
+            <li>Improved readability</li>
+            <li>Stronger visual hierarchy</li>
+            <li>More polished trust signals</li>
+            <li>A more premium overall feel</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── PROCESS ───────────────── -->
+  <section id="process">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-number">05 / <span>Proposed Process</span></div>
+        <h2 class="display-2">Three phases. Tight feedback loops.</h2>
+      </div>
+
+      <div class="process-track reveal-stagger">
+        <div class="phase">
+          <div class="phase-marker">01</div>
+          <h3>Strategy & Direction</h3>
+          <ul>
+            <li>Review current site structure</li>
+            <li>Competitor / reference review</li>
+            <li>Clarify messaging direction</li>
+            <li>Plan updated structure & layout</li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <div class="phase-marker">02</div>
+          <h3>Design & Build</h3>
+          <ul>
+            <li>Redesign key pages</li>
+            <li>Implement updated structure</li>
+            <li>Refresh visual presentation</li>
+            <li>Improve conversion flow</li>
+            <li>Build directly in Squarespace</li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <div class="phase-marker">03</div>
+          <h3>Review & Launch</h3>
+          <ul>
+            <li>Final refinements</li>
+            <li>Responsive / mobile cleanup</li>
+            <li>Feedback adjustments</li>
+            <li>Launch support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── TIMELINE ───────────────── -->
+  <section id="timeline" class="tight">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-number">06 / <span>Timeline</span></div>
+        <h2 class="display-2">A realistic, focused window.</h2>
+      </div>
+
+      <div class="timeline-bar reveal">
+        <div class="timeline-headline">
+          <h3>Estimated project timeline</h3>
+          <span class="estimate">~ 2–4 Weeks</span>
+        </div>
+        <div class="timeline-weeks">
+          <div class="week active">
+            <div class="week-label">Week 1</div>
+            <div class="week-phase">Strategy</div>
+          </div>
+          <div class="week active">
+            <div class="week-label">Week 2</div>
+            <div class="week-phase">Design</div>
+          </div>
+          <div class="week active">
+            <div class="week-label">Week 3</div>
+            <div class="week-phase">Build</div>
+          </div>
+          <div class="week active">
+            <div class="week-label">Week 4</div>
+            <div class="week-phase">Launch</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-notes reveal-stagger">
+        <div class="timeline-note">
+          <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+          <span>Timeline depends on feedback turnaround</span>
+        </div>
+        <div class="timeline-note">
+          <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></span>
+          <span>Content / assets provided by Tonic</span>
+        </div>
+        <div class="timeline-note">
+          <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span>Final agreed scope at kickoff</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── INVESTMENT (MONEY SHOT) ───────────────── -->
+  <section id="investment">
+    <div class="container">
+      <div class="section-header reveal" style="text-align: center; margin-left: auto; margin-right: auto;">
+        <div class="section-number">07 / <span>Investment</span></div>
+        <h2 class="display-2">Priced honestly, not like an agency.</h2>
+        <p class="lead" style="margin-top: 16px;">Here's what this scope typically costs across the Australian market, and what you'll actually pay.</p>
+      </div>
+
+      <!-- AGENCY COMPARISON BARS -->
+      <div class="market-context reveal">
+        <div class="market-context-head">
+          <div class="label"><strong>What 19 pages of B2B Squarespace redesign typically costs</strong></div>
+          <div class="source">AU market, 2026</div>
+        </div>
+        <div class="market-rows">
+          <div class="market-row">
+            <span class="tier">Sydney / Melbourne agency</span>
+            <div class="market-bar"><div class="fill" style="--w: 100%"></div></div>
+            <span class="price">$18,000 , $28,000</span>
+          </div>
+          <div class="market-row">
+            <span class="tier">Brisbane / regional agency</span>
+            <div class="market-bar"><div class="fill" style="--w: 65%"></div></div>
+            <span class="price">$12,000 , $18,000</span>
+          </div>
+          <div class="market-row">
+            <span class="tier">Mid-tier freelance specialist</span>
+            <div class="market-bar"><div class="fill" style="--w: 38%"></div></div>
+            <span class="price">$7,000 , $11,000</span>
+          </div>
+          <div class="market-row highlight">
+            <span class="tier">Worqless · this proposal</span>
+            <div class="market-bar"><div class="fill" style="--w: 16%"></div></div>
+            <span class="price"><span class="you">Your investment</span>$4,497 AUD</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="invest-card-wrap reveal">
+        <div class="invest-card">
+          <div class="invest-inner">
+            <div class="invest-left">
+              <div class="label">What's included · comparable agency value</div>
+              <div class="invest-list">
+                <div class="invest-line"><span class="name">Strategy + competitor research</span><span class="val">$1,200 AUD</span></div>
+                <div class="invest-line"><span class="name">Homepage redesign + modernization</span><span class="val">$2,400 AUD</span></div>
+                <div class="invest-line"><span class="name">About, Team, Contact (3 unique pages)</span><span class="val">$2,400 AUD</span></div>
+                <div class="invest-line"><span class="name">Blog hub redesign</span><span class="val">$800 AUD</span></div>
+                <div class="invest-line"><span class="name">Industry template + 9 page builds</span><span class="val">$3,000 AUD</span></div>
+                <div class="invest-line"><span class="name">Product template + 3 page builds</span><span class="val">$1,500 AUD</span></div>
+                <div class="invest-line"><span class="name">Service template + 2 page builds</span><span class="val">$1,000 AUD</span></div>
+                <div class="invest-line"><span class="name">Mobile responsive across all 19 pages</span><span class="val">$1,200 AUD</span></div>
+                <div class="invest-line"><span class="name">Squarespace implementation + handover</span><span class="val">$1,200 AUD</span></div>
+                <div class="invest-line"><span class="name">Messaging + CTA strategy</span><span class="val">$700 AUD</span></div>
+                <div class="invest-line"><span class="name">Trust / proof section design</span><span class="val">$600 AUD</span></div>
+              </div>
+              <div class="invest-totals">
+                <span class="name">Typical agency total</span>
+                <span class="val">~ $16,000 AUD</span>
+              </div>
+            </div>
+
+            <div class="invest-right">
+              <div class="label">Your investment</div>
+              <div class="price">$4,497<span class="currency">AUD</span></div>
+              <div class="price-sub">Total for the full 19-page redesign. Fixed, all-inclusive.</div>
+
+              <div class="invest-payments">
+                <div class="payment-row">
+                  <span class="pct">50%</span>
+                  <span>Upfront to begin the project</span>
+                </div>
+                <div class="payment-row">
+                  <span class="pct">50%</span>
+                  <span>Prior to final launch / handover</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── NEXT STEPS ───────────────── -->
+  <section id="next-steps">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-number">08 / <span>Next Steps</span></div>
+        <h2 class="display-2">If approved, here's how it goes.</h2>
+      </div>
+
+      <div class="next-grid">
+        <div class="next-list reveal-stagger">
+          <div class="next-item"><span class="next-num">01</span><span>Final scope is confirmed</span></div>
+          <div class="next-item"><span class="next-num">02</span><span>Agreement is signed</span></div>
+          <div class="next-item"><span class="next-num">03</span><span>Initial 50% invoice is paid</span></div>
+          <div class="next-item"><span class="next-num">04</span><span>Squarespace access is provided</span></div>
+          <div class="next-item"><span class="next-num">05</span><span>Project begins</span></div>
+        </div>
+
+        <div class="next-cta-card reveal">
+          <h3>Ready to move forward?</h3>
+          <p>Book a quick 15-minute kickoff call and we'll lock in scope, timeline, and start dates.</p>
+          <a href="https://calendly.com/jaydenrandall/discovery-call" class="btn-primary">
+            Book a kickoff call
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ───────────────── FOOTER ───────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="wordmark"><span class="worq">worq</span><span class="less">less</span><span class="dot">.</span></div>
+        <div class="footer-tag">Work smarter. Worqless.</div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Prepared by</h5>
+        <span>Jayden Randall</span>
+        <span>Founder, Worqless</span>
+        <a href="mailto:jaydenrandall.w@worqlessworks.com">jaydenrandall.w@worqlessworks.com</a>
+      </div>
+
+      <div class="footer-col">
+        <h5>This proposal</h5>
+        <span>Tonic Technologies</span>
+        <span>Website Modernization</span>
+        <span>May 2026</span>
+      </div>
+    </div>
+
+    <div class="footer-meta">
+      <span>© 2026 Worqless · Designed and built for Tonic Technologies</span>
+      <span>v1.0 · Confidential</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ───────────────── Nav scroll state + active link ─────────────────
+  const nav = document.getElementById('nav');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = ['opportunity', 'scope', 'process', 'investment'].map(id => document.getElementById(id)).filter(Boolean);
+
+  function onScroll() {
+    if (window.scrollY > 24) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+
+    // Active section detection
+    const offset = window.scrollY + 140;
+    let active = null;
+    sections.forEach(sec => {
+      if (sec.offsetTop <= offset) active = sec.id;
+    });
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href').slice(1);
+      link.classList.toggle('active', href === active);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ───────────────── Scroll reveal ─────────────────
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+  // ───────────────── Cursor-tracking card highlight ─────────────────
+  document.querySelectorAll('[data-track-mouse] > *, .outcome-card, .key-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const mx = ((e.clientX - rect.left) / rect.width) * 100;
+      const my = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', mx + '%');
+      card.style.setProperty('--my', my + '%');
+    });
+  });
+</script>
+
+</body>
+</html>
