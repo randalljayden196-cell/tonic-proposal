@@ -740,6 +740,53 @@
     .invest-includes { padding: 24px 22px; }
   }
 
+  /* ───────────────────────── RETAINER ADD-ON ───────────────────────── */
+  .retainer-wrap {
+    max-width: 680px; margin: 32px auto 0; padding: 32px 36px;
+    border: 1.5px dashed rgba(27,164,224,0.3);
+    border-radius: 16px;
+    background: rgba(27,164,224,0.03);
+    position: relative;
+  }
+  .retainer-badge {
+    position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+    background: var(--bg-base); border: 1px solid rgba(27,164,224,0.35);
+    color: var(--accent-primary); font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 14px; border-radius: 20px; white-space: nowrap;
+  }
+  .retainer-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; margin-bottom: 20px;
+  }
+  .retainer-title {
+    font-size: 1.05rem; font-weight: 600; color: var(--text-primary);
+  }
+  .retainer-price {
+    font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; font-weight: 600;
+    color: var(--accent-primary); white-space: nowrap;
+  }
+  .retainer-price span { font-size: 0.78rem; color: var(--text-tertiary); margin-left: 4px; }
+  .retainer-list {
+    list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 16px;
+  }
+  .retainer-list li {
+    font-size: 0.9rem; color: var(--text-secondary); padding-left: 18px; position: relative;
+  }
+  .retainer-list li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(27,164,224,0.5);
+  }
+  .retainer-note {
+    font-size: 0.82rem; color: var(--text-tertiary); font-style: italic;
+    border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: 4px;
+  }
+  @media (max-width: 720px) {
+    .retainer-wrap { padding: 28px 22px; }
+    .retainer-header { flex-direction: column; gap: 6px; }
+  }
+
   /* ───────────────────────── FOUNDER NOTE ───────────────────────── */
   .founder-card {
     background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-base) 100%);
@@ -1337,6 +1384,7 @@
               <li>Messaging and CTA improvements</li>
               <li>Trust / proof section refinement</li>
               <li>Launch support</li>
+              <li>2 rounds of revisions included</li>
             </ul>
           </div>
 
@@ -1354,6 +1402,24 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="retainer-wrap reveal">
+        <div class="retainer-badge">Optional add-on</div>
+        <div class="retainer-header">
+          <div class="retainer-title">Ongoing Monthly Support</div>
+          <div class="retainer-price">$247<span>AUD / month</span></div>
+        </div>
+        <ul class="retainer-list">
+          <li>Up to 2 hours of site updates per month</li>
+          <li>Content changes — team, services, copy, imagery</li>
+          <li>Minor design tweaks and layout adjustments</li>
+          <li>Blog post formatting and publishing support</li>
+          <li>CTA and conversion improvements as the site evolves</li>
+          <li>Priority response within 48 business hours</li>
+          <li>Month-to-month, no lock-in contract</li>
+        </ul>
+        <div class="retainer-note">This is entirely optional. The project handover includes full Squarespace access so your team can manage content independently. This retainer is for ongoing design and development support beyond day-to-day content updates.</div>
       </div>
     </div>
   </section>
