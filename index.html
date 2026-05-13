@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Proposal · Tonic Technologies × Worqless</title>
-<meta name="description" content="Website modernization + conversion refresh proposal for Tonic Technologies, prepared by Worqless." />
+<meta name="description" content="Website modernisation + conversion refresh proposal for Tonic Technologies, prepared by Worqless." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
@@ -463,6 +463,64 @@
     .design-direction { position: static; }
   }
 
+  /* Scope clarification + Not Included */
+  .scope-clarification {
+    margin-bottom: 56px;
+    padding: 28px 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-left: 2px solid var(--accent);
+    border-radius: 10px;
+  }
+  .scope-clarification p {
+    font-size: 1rem; color: var(--text-primary); line-height: 1.65;
+    margin: 0;
+  }
+
+  .not-included {
+    margin-top: 56px;
+    padding: 36px 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+  }
+  .not-included-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 24px;
+    padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle);
+  }
+  .not-included-head .label {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .not-included-head .hint {
+    font-size: 0.82rem; color: var(--text-tertiary);
+    font-style: italic;
+  }
+  .not-included-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px 24px;
+  }
+  .not-included-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 0;
+    font-size: 0.93rem; color: var(--text-secondary); line-height: 1.5;
+  }
+  .not-included-item .x {
+    flex-shrink: 0; margin-top: 2px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--bg-overlay);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-tertiary);
+    display: flex; align-items: center; justify-content: center;
+  }
+  @media (max-width: 720px) {
+    .not-included { padding: 28px 24px; }
+    .not-included-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+  }
+
   /* ───────────────────────── PROCESS ───────────────────────── */
   .process-track {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
@@ -562,76 +620,7 @@
     .timeline-weeks { grid-template-columns: repeat(2, 1fr); }
   }
 
-  /* ───────────────────────── MARKET CONTEXT (agency comparison) ───────────────────────── */
-  .market-context {
-    margin-bottom: 56px;
-    padding: 36px 40px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-  }
-  .market-context-head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    flex-wrap: wrap; gap: 12px; margin-bottom: 28px;
-  }
-  .market-context-head .label {
-    font-family: var(--font-mono); font-size: 0.7rem;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--text-tertiary);
-  }
-  .market-context-head .label strong { color: var(--text-primary); font-weight: 500; }
-  .market-context-head .source {
-    font-family: var(--font-mono); font-size: 0.68rem;
-    color: var(--text-tertiary); letter-spacing: 0.08em;
-  }
-  .market-rows { display: flex; flex-direction: column; gap: 14px; }
-  .market-row {
-    display: grid; grid-template-columns: 220px 1fr 160px;
-    gap: 24px; align-items: center;
-  }
-  .market-row .tier { font-size: 0.92rem; color: var(--text-secondary); }
-  .market-row.highlight .tier { color: var(--text-primary); font-weight: 600; }
-  .market-bar {
-    height: 10px; border-radius: 999px;
-    background: var(--bg-overlay);
-    position: relative; overflow: hidden;
-    border: 1px solid var(--border-subtle);
-  }
-  .market-bar .fill {
-    position: absolute; left: 0; top: 0; bottom: 0;
-    background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.16));
-    border-radius: 999px;
-    width: var(--w, 0);
-    transform-origin: left;
-    transform: scaleX(0);
-    transition: transform 1.2s var(--ease);
-  }
-  .market-context.in .market-bar .fill { transform: scaleX(1); }
-  .market-row:nth-child(1) .fill { transition-delay: 0.1s; }
-  .market-row:nth-child(2) .fill { transition-delay: 0.25s; }
-  .market-row:nth-child(3) .fill { transition-delay: 0.4s; }
-  .market-row:nth-child(4) .fill { transition-delay: 0.55s; }
-  .market-row.highlight .fill {
-    background: linear-gradient(90deg, var(--accent-bright), var(--accent));
-    box-shadow: 0 0 24px rgba(27,164,224,0.5);
-  }
-  .market-row .price {
-    font-family: var(--font-mono); font-size: 0.88rem;
-    color: var(--text-secondary); text-align: right; white-space: nowrap;
-  }
-  .market-row.highlight .price { color: var(--accent); font-weight: 600; font-size: 0.95rem; }
-  .market-row.highlight .price .you {
-    font-family: var(--font-sans); font-size: 0.68rem; font-weight: 500;
-    color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
-    display: block; margin-bottom: 2px;
-  }
-  @media (max-width: 720px) {
-    .market-context { padding: 28px 24px; }
-    .market-row { grid-template-columns: 1fr; gap: 8px; }
-    .market-row .price { text-align: left; }
-  }
-
-  /* ───────────────────────── INVESTMENT (MONEY SHOT) ───────────────────────── */
+  /* ───────────────────────── INVESTMENT ───────────────────────── */
   .invest-card-wrap {
     position: relative;
   }
@@ -646,89 +635,93 @@
     0%, 100% { opacity: 0.5; }
     50% { opacity: 1; }
   }
-  .invest-card {
+
+  .invest-clean {
     position: relative;
+    padding: 64px 56px;
     background: linear-gradient(180deg, #14161B 0%, #0D0D10 100%);
     border: 1px solid var(--border-strong);
     border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(27,164,224,0.08) inset;
+    text-align: center;
   }
-  .invest-card::before {
+  .invest-clean::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
   }
-  .invest-inner {
-    display: grid; grid-template-columns: 1.2fr 1fr;
-    gap: 0;
-  }
-  .invest-left {
-    padding: 48px 44px;
-    border-right: 1px solid var(--border-subtle);
-  }
-  .invest-left .label {
-    font-family: var(--font-mono); font-size: 0.7rem;
-    text-transform: uppercase; letter-spacing: 0.14em;
-    color: var(--accent); margin-bottom: 24px;
-  }
-  .invest-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
-  .invest-line {
-    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-    padding-bottom: 14px;
-    border-bottom: 1px dashed var(--border-subtle);
-  }
-  .invest-line:last-of-type { border-bottom: none; padding-bottom: 0; }
-  .invest-line .name { font-size: 0.92rem; color: var(--text-primary); }
-  .invest-line .val {
-    font-family: var(--font-mono); font-size: 0.85rem;
-    color: var(--text-tertiary); text-decoration: line-through;
-    text-decoration-color: rgba(82,82,91,0.6);
-  }
-  .invest-totals {
-    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-    padding-top: 20px; border-top: 1px solid var(--border-strong);
-  }
-  .invest-totals .name {
-    font-family: var(--font-mono); font-size: 0.78rem;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--text-secondary);
-  }
-  .invest-totals .val {
-    font-family: var(--font-mono); font-weight: 600;
-    font-size: 1.1rem; color: var(--text-tertiary);
-    text-decoration: line-through; text-decoration-color: rgba(82,82,91,0.6);
+  .invest-clean::after {
+    content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse at center, rgba(27,164,224,0.14), transparent 60%);
+    filter: blur(40px); pointer-events: none;
   }
 
-  .invest-right {
-    padding: 48px 44px;
-    display: flex; flex-direction: column; justify-content: center;
-    background: radial-gradient(ellipse at top right, rgba(27,164,224,0.12), transparent 60%);
+  .invest-price-block { margin-bottom: 44px; position: relative; }
+  .invest-price-label {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--accent); margin-bottom: 16px;
   }
-  .invest-right .label {
+  .invest-price-display {
+    font-size: clamp(3.25rem, 8vw, 5rem);
+    font-weight: 800; line-height: 1; letter-spacing: -0.04em;
+    color: var(--text-primary);
+  }
+  .invest-price-display .currency {
+    font-family: var(--font-mono); font-size: 1rem; font-weight: 500;
+    color: var(--text-tertiary); margin-left: 12px; vertical-align: super;
+    letter-spacing: 0.1em;
+  }
+
+  .invest-includes {
+    max-width: 540px;
+    margin: 0 auto 44px;
+    padding: 32px 36px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    text-align: left;
+    position: relative;
+  }
+  .invest-includes-label {
     font-family: var(--font-mono); font-size: 0.7rem;
     text-transform: uppercase; letter-spacing: 0.14em;
-    color: var(--accent); margin-bottom: 12px;
+    color: var(--text-tertiary); margin-bottom: 20px;
   }
-  .invest-right .price {
-    font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 800;
-    color: var(--text-primary); line-height: 1; letter-spacing: -0.04em;
-    margin-bottom: 6px;
+  .invest-includes-list { display: flex; flex-direction: column; gap: 13px; }
+  .invest-includes-list li {
+    display: flex; align-items: flex-start; gap: 14px;
+    font-size: 0.97rem; color: var(--text-primary); line-height: 1.5;
   }
-  .invest-right .price .currency {
-    font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500;
-    color: var(--text-tertiary); margin-left: 8px; vertical-align: super;
-    letter-spacing: 0.08em;
+  .invest-includes-list li::before {
+    content: ''; flex-shrink: 0; margin-top: 9px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(27,164,224,0.6);
   }
-  .invest-right .price-sub { font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 32px; }
-  .invest-payments {
-    display: flex; flex-direction: column; gap: 12px;
-    padding-top: 24px; border-top: 1px solid var(--border-subtle);
+
+  .invest-payments-block {
+    max-width: 460px; margin: 0 auto;
+    padding-top: 36px;
+    border-top: 1px solid var(--border-subtle);
+    position: relative;
   }
-  .payment-row {
-    display: flex; align-items: center; gap: 14px;
-    font-size: 0.88rem; color: var(--text-secondary);
+  .invest-payments-label {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--text-tertiary); margin-bottom: 20px;
   }
-  .payment-row .pct {
+  .invest-payments-rows { display: flex; flex-direction: column; gap: 12px; }
+  .invest-payment-row {
+    display: flex; align-items: center; gap: 16px;
+    text-align: left;
+    padding: 14px 18px;
+    background: var(--bg-overlay);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+  }
+  .invest-payment-row .pct {
     font-family: var(--font-mono); font-weight: 600;
     width: 44px; height: 44px;
     border-radius: 50%;
@@ -736,14 +729,15 @@
     border: 1px solid rgba(27,164,224,0.3);
     color: var(--accent);
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.85rem;
-    flex-shrink: 0;
+    font-size: 0.85rem; flex-shrink: 0;
+  }
+  .invest-payment-row .desc {
+    font-size: 0.93rem; color: var(--text-primary);
   }
 
-  @media (max-width: 800px) {
-    .invest-inner { grid-template-columns: 1fr; }
-    .invest-left { border-right: none; border-bottom: 1px solid var(--border-subtle); }
-    .invest-left, .invest-right { padding: 36px 28px; }
+  @media (max-width: 720px) {
+    .invest-clean { padding: 44px 24px; }
+    .invest-includes { padding: 24px 22px; }
   }
 
   /* ───────────────────────── FOUNDER NOTE ───────────────────────── */
@@ -964,7 +958,7 @@
         </div>
         <div class="hero-meta-item">
           <div class="label">Project</div>
-          <div class="value">Website Modernization + Conversion Refresh</div>
+          <div class="value">Website Modernisation + Conversion Refresh</div>
         </div>
         <div class="hero-meta-item">
           <div class="label">Date</div>
@@ -1065,10 +1059,10 @@
               </div>
             </div>
             <div class="ba-notes">
-              <div class="ba-note"><span><span class="tag">Weak CTA:</span> generic "Contact us today" creates no urgency or specificity.</span></div>
-              <div class="ba-note"><span><span class="tag">No social proof:</span> 12+ client logos but zero testimonials or case studies.</span></div>
-              <div class="ba-note"><span><span class="tag">Dual-ERP message:</span> MYOB + TechnologyOne pitched in parallel creates buyer confusion.</span></div>
-              <div class="ba-note"><span><span class="tag">Missing certifications:</span> no third-party validation visible above the fold.</span></div>
+              <div class="ba-note"><span><span class="tag">Opportunity for a more guided next step:</span> a clearer, more specific CTA helps prospects know exactly what to do.</span></div>
+              <div class="ba-note"><span><span class="tag">Opportunity to surface stronger implementation reassurance:</span> existing client relationships can anchor more trust through testimonials and case studies.</span></div>
+              <div class="ba-note"><span><span class="tag">Opportunity for clearer positioning hierarchy:</span> leading with one anchor message creates a sharper first impression.</span></div>
+              <div class="ba-note"><span><span class="tag">Opportunity to make credibility signals more visible:</span> certifications and platform partnerships shown earlier build confidence faster.</span></div>
             </div>
           </div>
 
@@ -1123,7 +1117,7 @@
           <div class="key-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
           </div>
-          <h3>Modernization of the Overall UI</h3>
+          <h3>Modernisation of the Overall UI</h3>
           <p>Refreshing the visual experience so the site feels current, polished, and aligned with modern B2B expectations, the kind of first impression that matches Tonic's actual capability.</p>
         </div>
 
@@ -1159,23 +1153,34 @@
     <div class="container">
       <div class="section-header reveal">
         <div class="section-number">04 / <span>Proposed Scope</span></div>
-        <h2 class="display-2">Website modernization + refresh.</h2>
+        <h2 class="display-2">Modernizing the core, refreshing the rest.</h2>
+        <p class="lead" style="margin-top: 16px;">
+          Modernisation of core high-impact pages plus refreshed styling and layout alignment across the wider 19-page Squarespace site.
+        </p>
+      </div>
+
+      <div class="scope-clarification reveal">
+        <p>
+          This project is not scoped as 19 individually custom-designed pages. The focus is redesigning the highest-impact pages, creating a cleaner visual system, and applying that system consistently across the wider site so the whole experience feels current, coherent, and conversion-focused.
+        </p>
       </div>
 
       <div class="scope-grid">
         <div class="reveal">
-          <h3 class="heading-card" style="margin-bottom: 24px;">What's included</h3>
+          <h3 class="heading-card" style="margin-bottom: 24px;">Included</h3>
           <div class="scope-checklist reveal-stagger">
-            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Homepage redesign + modernization</span></div>
-            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Full 19-page redesign across the site</span></div>
-            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Improved layout structure</span></div>
-            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Modern UI refresh</span></div>
-            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Messaging improvements</span></div>
-            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>CTA improvements</span></div>
-            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Trust / proof section improvements</span></div>
-            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Mobile responsiveness improvements</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Homepage redesign and modernisation</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Core service / solution page refresh</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>About / Team page refresh</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Contact / enquiry page refresh</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>One industry / use-case page template</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>One product / platform page template</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Blog / resources hub refresh if needed</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Global Squarespace visual style refresh</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>CTA and trust / proof section improvements</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Mobile / responsive cleanup</span></div>
+            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Supporting page styling alignment using the new visual system</span></div>
             <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Squarespace implementation</span></div>
-            <div class="scope-item"><div class="scope-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span>Overall user experience refinement</span></div>
           </div>
         </div>
 
@@ -1191,6 +1196,22 @@
             <li>A more premium overall feel</li>
           </ul>
         </aside>
+      </div>
+
+      <div class="not-included reveal">
+        <div class="not-included-head">
+          <span class="label">Not included</span>
+          <span class="hint">For scope clarity. Anything below can be discussed as a separate add-on.</span>
+        </div>
+        <div class="not-included-grid">
+          <div class="not-included-item"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Full custom unique redesign of every individual page</span></div>
+          <div class="not-included-item"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>New logo or full brand identity package</span></div>
+          <div class="not-included-item"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Advanced custom development</span></div>
+          <div class="not-included-item"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Complex backend functionality</span></div>
+          <div class="not-included-item"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>New long-form copywriting for every page</span></div>
+          <div class="not-included-item"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Unlimited revisions</span></div>
+          <div class="not-included-item"><span class="x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span><span>Major content creation such as case studies, videos, or photography</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -1291,83 +1312,44 @@
     </div>
   </section>
 
-  <!-- ───────────────── INVESTMENT (MONEY SHOT) ───────────────── -->
+  <!-- ───────────────── INVESTMENT ───────────────── -->
   <section id="investment">
-    <div class="container">
-      <div class="section-header reveal" style="text-align: center; margin-left: auto; margin-right: auto;">
+    <div class="container-tight">
+      <div class="section-header reveal" style="text-align: center; margin: 0 auto 56px;">
         <div class="section-number">07 / <span>Investment</span></div>
-        <h2 class="display-2">Priced honestly, not like an agency.</h2>
-        <p class="lead" style="margin-top: 16px;">Here's what this scope typically costs across the Australian market, and what you'll actually pay.</p>
-      </div>
-
-      <!-- AGENCY COMPARISON BARS -->
-      <div class="market-context reveal">
-        <div class="market-context-head">
-          <div class="label"><strong>What 19 pages of B2B Squarespace redesign typically costs</strong></div>
-          <div class="source">AU market, 2026</div>
-        </div>
-        <div class="market-rows">
-          <div class="market-row">
-            <span class="tier">Sydney / Melbourne agency</span>
-            <div class="market-bar"><div class="fill" style="--w: 100%"></div></div>
-            <span class="price">$18,000 , $28,000</span>
-          </div>
-          <div class="market-row">
-            <span class="tier">Brisbane / regional agency</span>
-            <div class="market-bar"><div class="fill" style="--w: 65%"></div></div>
-            <span class="price">$12,000 , $18,000</span>
-          </div>
-          <div class="market-row">
-            <span class="tier">Mid-tier freelance specialist</span>
-            <div class="market-bar"><div class="fill" style="--w: 38%"></div></div>
-            <span class="price">$7,000 , $11,000</span>
-          </div>
-          <div class="market-row highlight">
-            <span class="tier">Worqless · this proposal</span>
-            <div class="market-bar"><div class="fill" style="--w: 16%"></div></div>
-            <span class="price"><span class="you">Your investment</span>$4,497 AUD</span>
-          </div>
-        </div>
+        <h2 class="display-2">A single, fixed investment for the project.</h2>
       </div>
 
       <div class="invest-card-wrap reveal">
-        <div class="invest-card">
-          <div class="invest-inner">
-            <div class="invest-left">
-              <div class="label">What's included · comparable agency value</div>
-              <div class="invest-list">
-                <div class="invest-line"><span class="name">Strategy + competitor research</span><span class="val">$1,200 AUD</span></div>
-                <div class="invest-line"><span class="name">Homepage redesign + modernization</span><span class="val">$2,400 AUD</span></div>
-                <div class="invest-line"><span class="name">About, Team, Contact (3 unique pages)</span><span class="val">$2,400 AUD</span></div>
-                <div class="invest-line"><span class="name">Blog hub redesign</span><span class="val">$800 AUD</span></div>
-                <div class="invest-line"><span class="name">Industry template + 9 page builds</span><span class="val">$3,000 AUD</span></div>
-                <div class="invest-line"><span class="name">Product template + 3 page builds</span><span class="val">$1,500 AUD</span></div>
-                <div class="invest-line"><span class="name">Service template + 2 page builds</span><span class="val">$1,000 AUD</span></div>
-                <div class="invest-line"><span class="name">Mobile responsive across all 19 pages</span><span class="val">$1,200 AUD</span></div>
-                <div class="invest-line"><span class="name">Squarespace implementation + handover</span><span class="val">$1,200 AUD</span></div>
-                <div class="invest-line"><span class="name">Messaging + CTA strategy</span><span class="val">$700 AUD</span></div>
-                <div class="invest-line"><span class="name">Trust / proof section design</span><span class="val">$600 AUD</span></div>
-              </div>
-              <div class="invest-totals">
-                <span class="name">Typical agency total</span>
-                <span class="val">~ $16,000 AUD</span>
-              </div>
-            </div>
+        <div class="invest-clean">
+          <div class="invest-price-block">
+            <div class="invest-price-label">Total project investment</div>
+            <div class="invest-price-display">$4,497<span class="currency">AUD</span></div>
+          </div>
 
-            <div class="invest-right">
-              <div class="label">Your investment</div>
-              <div class="price">$4,497<span class="currency">AUD</span></div>
-              <div class="price-sub">Total for the full 19-page redesign. Fixed, all-inclusive.</div>
+          <div class="invest-includes">
+            <div class="invest-includes-label">This includes</div>
+            <ul class="invest-includes-list">
+              <li>Modernisation of the core high-impact pages</li>
+              <li>Refreshed visual system across the wider Squarespace site</li>
+              <li>Squarespace implementation</li>
+              <li>Responsive / mobile optimisation</li>
+              <li>Messaging and CTA improvements</li>
+              <li>Trust / proof section refinement</li>
+              <li>Launch support</li>
+            </ul>
+          </div>
 
-              <div class="invest-payments">
-                <div class="payment-row">
-                  <span class="pct">50%</span>
-                  <span>Upfront to begin the project</span>
-                </div>
-                <div class="payment-row">
-                  <span class="pct">50%</span>
-                  <span>Prior to final launch / handover</span>
-                </div>
+          <div class="invest-payments-block">
+            <div class="invest-payments-label">Payment structure</div>
+            <div class="invest-payments-rows">
+              <div class="invest-payment-row">
+                <span class="pct">50%</span>
+                <span class="desc">Upfront to begin the project</span>
+              </div>
+              <div class="invest-payment-row">
+                <span class="pct">50%</span>
+                <span class="desc">Prior to final launch / handover</span>
               </div>
             </div>
           </div>
@@ -1426,7 +1408,7 @@
       <div class="footer-col">
         <h5>This proposal</h5>
         <span>Tonic Technologies</span>
-        <span>Website Modernization</span>
+        <span>Website Modernisation</span>
         <span>May 2026</span>
       </div>
     </div>
